@@ -72,7 +72,7 @@ main() {
 
 	for module in "${modules[@]}"; do
 		log "--- Running module: $module ---"
-		bash "$SCRIPT_DIR/scripts/${module}.sh" || die "Module '$module' failed"
+		bash "$SCRIPT_DIR/${module}.sh" || die "Module '$module' failed"
 		ok "Module '$module' completed"
 	done
 
