@@ -24,7 +24,7 @@ Each module is independent - run them all at once or pick what you need.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/ubuntu-setup.git
+git clone https://github.com/Rusnus/Ubuntu-setup.git
 cd ubuntu-setup
 
 # 2. (OPTIONAL) Configure via enviponment variables
