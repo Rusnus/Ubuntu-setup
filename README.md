@@ -24,8 +24,8 @@ Each module is independent - run them all at once or pick what you need.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/ubuntu-setup-scripts.git
-cd ubuntu-setup
+git clone https://github.com/Rusnus/Ubuntu-setup.git
+cd Ubuntu-setup
 
 # 2. (OPTIONAL) Configure via enviponment variables
 export ADMIN_USER="deploy"
@@ -40,4 +40,4 @@ sudo bash setup.sh --all
 sudo bash setup.sh --ssh --firewall
 ```
 
->  **WARNING:** Run `--ssh` only after your public key is in `\~/.ssh/authorized\_keys`on the server, or you will lock yourself out.
+>  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
