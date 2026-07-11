@@ -63,7 +63,7 @@ lock_root(){
 }
 
 main() {
-	log "Module: user setup"
+	log "=== Module: user setup ==="
 	create_users
 	setup_ssh_key
 	configure_sudo
