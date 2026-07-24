@@ -7,8 +7,8 @@ GREEN="\033[0;32m"
 NC="\033[0m"
 
 LOG_FILE="/var/log/ubuntu-setup.log"
-log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [fail2ban] $*" | tee -a $"LOG_FILE"; }
-ok() { echo -e "$(date '+%Y-%m-%d %H:%M:%S')[GREEN][OK][NC] $*" | tee -a $"LOG_FILE"; }
+log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [fail2ban] $*" | tee -a "$LOG_FILE"; }
+ok() { echo -e "$(date '+%Y-%m-%d %H:%M:%S')${GREEN}[OK]${NC} $*" | tee -a "$LOG_FILE"; }
 
 SSH_PORT="${SSH_PORT:-22}"
 BAN_TIME="${BAN_TIME:-3600}"

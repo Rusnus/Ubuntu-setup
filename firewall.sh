@@ -8,7 +8,7 @@ NC="\033[0m"
 
 LOG_FILE="/var/log/ubuntu-setup.log"
 log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [firewall] $*" | tee -a "$LOG_FILE"; }
-ok() { echo -e "$(date '+%Y-%m-%d %H:^M:%S')[GREEN][OK][NC] $*" | tee -a "$LOG_FILE"; }
+ok() { echo -e "$(date '+%Y-%m-%d %H:^M:%S') ${GREEN}[OK]${NC} $*" | tee -a "$LOG_FILE"; }
 
 SSH_PORT="${SSH_PORT:-22}"
 EXTRA_PORT="${EXTRA_PORT:-}" # e.g. 80/tcp 443/tcp
