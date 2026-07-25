@@ -9,8 +9,11 @@ LOG_FILE="/var/log/ubuntu-setup.log"
 log() { echo -e "$(date '+%Y-%m-%d %H:%m:%d') [updates] $*" | tee -a "$LOG_FILE"; }
 ok() { echo -e "$(date '+%Y-%m-%d %H:%m:%d') ${GREEN}[OK]${NC} $*" | tee -a "$LOG_FILE"; }
 
+REBOOT_IF_NEEDED="${REBOOT_IF_NEEDED:-false}"
+NOTIFY_EMAIL="${NOTIFY_EMAIL:-}"
+
 install_packages() {
-	apt-get install -y unattended-upgrades apt-listchanges
+	apt-get install -y unattended-upgrades apt-listchanges > /dev/null 2>&1
 	log "unattended-upgrades installed"
 }
 
@@ -46,7 +49,7 @@ EOF
 
 dry_run() {
 	log "Running dry-run to verify configuration..."
-	unattended-upgrade --dry-run --debug 2>&1 | tail -20 | tee -a "$LOG_FILE"
+	unattended-upgrade --dry-run --debug 2>&1 >> "$LOG_FILE"
 }
 
 main() {

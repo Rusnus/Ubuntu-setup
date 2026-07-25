@@ -16,7 +16,7 @@ FIND_TIME="${FIND_TIME:-600}"
 MAX_RETRY="${MAX_RETRY:-5}"
 
 install_fail2ban() {
-	apt-get install -y fail2ban
+	apt-get install -y fail2ban > /dev/null 2>&1
 	log "fail2ban installed"
 }
 
@@ -41,10 +41,10 @@ EOF
 }
 
 enable_fail2ban() {
-	systemctl enable fail2ban
-	systemctl restart fail2ban
+	systemctl enable fail2ban > /dev/null 2>&1
+	systemctl restart fail2ban > /dev/null 2>&1
 	sleep 2
-	fail2ban-client status sshd | tee -a "$LOG_FILE" || log "fail2ban sshd jail not yet active"
+	fail2ban-client status sshd >> "$LOG_FILE" 2>&1 || log "fail2ban sshd jail not yet active"
 }
 
 main() {
