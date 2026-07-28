@@ -22,7 +22,11 @@ create_users() {
 		log "User '$ADMIN_USER' already exists - skip creation"
 	else
 		useradd -m -s /bin/bash -G sudo "$ADMIN_USER"
-		passwd -e "$ADMIN_USER"
+		local generated_password
+		generated_password="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 7)" || true
+		echo "${ADMIN_USER}:${generated_password}" | chpasswd >>"$LOG_FILE" 2>&1
+		log " Generated local password for '$ADMIN_USER' (used for sudo only):"
+		log " ${generated_password}"
 		log "User '$ADMIN_USER' created and added to sudo group"
 	fi
 
@@ -58,7 +62,7 @@ EOF
 }
 
 lock_root(){
-	passwd -l root
+	passwd -l root >> "$LOG_FILE" 2>&1
 	log "Root account password locked (sudo works)"
 }
 
