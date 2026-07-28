@@ -41,3 +41,19 @@ sudo bash setup.sh --ssh --firewall
 ```
 
 >  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
+
+# Configuration
+
+All options are set via environment variables — no config files to edit.
+
+| Variable | Default | Description |
+|---|---|---|
+| `ADMIN_USER` | `serveradmin` | Username to create |
+| `SSH_KEY_FILE` | *(empty)* | Path to local public key file |
+| `SSH_PORT` | `22` | SSH port (change to reduce scan noise) |
+| `SSH_ALLOW_USERS` | *(all)* | Space-separated list of allowed SSH users |
+| `BAN_TIME` | `3600` | fail2ban ban duration in seconds |
+| `MAX_RETRY` | `5` | fail2ban max auth failures before ban |
+| `REBOOT_IF_NEEDED` | `false` | Auto-reboot after kernel updates |
+| `NOTIFY_EMAIL` | *(empty)* | Email for upgrade and audit alerts |
+| `EXTRA_PORTS` | *(empty)* | Additional ports to allow in ufw, e.g. `"80/tcp 443/tcp"` |
