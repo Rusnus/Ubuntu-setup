@@ -1,17 +1,8 @@
 #!/usr/bin/env bash
 
+source "$(dirname "$0")/logger.sh"
+
 set -euo pipefail
-
-LOG_FILE="/var/log/ubuntu-setup.log"
-
-GREEN="\033[0;32m"
-YELLOW="\033[0;33m"
-NC="\033[0m"
-
-log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [ssh] $*" | tee -a "$LOG_FILE"; }
-ok() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') ${GREEN}[ssh][OK]${NC} $*" | tee -a "$LOG_FILE"; }
-warn() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') ${YELLOW}[ssh][WARN]${NC} $*" | tee -a "$LOG_FILE"; }
-die() { echo -e "[ERROR] $*" | tee -a "$LOG_FILE"; exit 1; }
 
 SSH_PORT="${SSH_PORT:-22}"
 SSH_ALLOW_USERS="${SSH_ALLOW_USERS:-}"
@@ -53,7 +44,7 @@ This system is for authorized use only. All activity may be
 monitored and logged. Unauthorized access is prohibited.
 ${line}
 EOF
-	ok "Wrote login banner to $BANNER_FILE"
+	log "Wrote login banner to $BANNER_FILE"
 }
 
 write_config() {
@@ -84,7 +75,7 @@ write_config() {
 	echo ""
 	echo "Include ${SSHD_CONFIG_DIR}/*.conf"
 	} > "SSHD_CONFIG"
-	ok "Wrote new sshd_config (port ${SSH_PORT})"
+	log "Wrote new sshd_config (port ${SSH_PORT})"
 }
 
 validate_and_restart() {
@@ -93,9 +84,9 @@ validate_and_restart() {
 		cp "$BACKUP" "$SSHD_CONFIG"
 		die "Reverted to backup. Check your settings and try again."
 	fi
-	ok "sshd config validated"
+	log "sshd config validated"
 	systemctl restart ssh || systemctl restart sshd
-	ok "SSH service restarted (port ${SSH_PORT})"
+	log "SSH service restarted (port ${SSH_PORT})"
 }
 
 main() {
@@ -105,7 +96,7 @@ main() {
 	write_banner
 	write_config
 	validate_and_restart
-	ok "SSH hardening complete."
+	log "SSH complete"
 }
 
 main "$@"

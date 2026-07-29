@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 
+source "$(dirname "$0")/logger.sh"
+
 set -euo pipefail
-
-LOG_FILE="/var/log/ubuntu-setup.log"
-
-# Colors
-RED='\033[0;31m';
-NC='\033[0m';
-
-log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [users] $*" | tee -a "$LOG_FILE"; }
-die() { echo -e "${RED}[ERROR]${NC}   $*" | tee -a "$LOG_FILE"; exit 1; }
 
 ADMIN_USER="${ADMIN_USER:-serveradmin}"
 # Path to public key
@@ -57,7 +50,7 @@ configure_sudo(){
 		${ADMIN_USER} ALL=(ALL:ALL) ALL
 EOF
 	chmod 440 "$sudoers_file"
-	visudo -cf "$sudoers_file" || die "sudoers syntax error - check $sudoers_file"
+	visudo -cf "$sudoers_file" > /dev/null || die "sudoers syntax error - check $sudoers_file"
 	log "sudo configured for '$ADMIN_USER'"
 }
 

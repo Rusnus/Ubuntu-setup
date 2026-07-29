@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
 
+source "$(dirname "$0")/logger.sh"
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LOG_FILE="/var/log/setup.log"
-
-#Colors
-RED='\033[0;31m';
-GREEN='\033[0;32m';
-YELLOW='\033[1;33m';
-NC='\033[0m'
-
-log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [INFO] $*" | tee -a "$LOG_FILE"; }
-ok() { echo -e "${GREEN}[OK]${NC}   $*" | tee -a "$LOG_FILE"; }
-warn() { echo -e "${YELLOW}[WARN]${NC}   $*" | tee -a "$LOG_FILE"; }
-die() { echo -e "${RED}[ERROR]${NC}   $*" | tee -a "$LOG_FILE"; exit 1; }
 
 check_root() {
 	[[ "$EUID" -eq 0 ]] || die "Run as root: sudo bash setup.sh"
@@ -44,8 +34,6 @@ usage() {
 
 main() {
 	check_root
-	check_ubuntu
-	log "Ubuntu Setup started"
 
 	local run_all=false
 	local modules=()
@@ -67,8 +55,11 @@ main() {
 	done
 
 	if $run_all; then
-		modules=(users ssh firewall fail2ban updates hardening)
+		modules=(users ssh firewall fail2ban updates)
 	fi
+
+	check_ubuntu
+	log "Ubuntu Setup started"
 
 	for module in "${modules[@]}"; do
 		log "--- Running module: $module ---"
