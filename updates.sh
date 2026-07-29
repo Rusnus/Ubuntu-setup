@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 
+source "$(dirname "$0")/logger.sh"
+
 set -euo pipefail
-
-GREEN="\033[0;32m"
-NC="\033[0m"
-
-LOG_FILE="/var/log/ubuntu-setup.log"
-log() { echo -e "$(date '+%Y-%m-%d %H:%m:%d') [updates] $*" | tee -a "$LOG_FILE"; }
-ok() { echo -e "$(date '+%Y-%m-%d %H:%m:%d') ${GREEN}[OK]${NC} $*" | tee -a "$LOG_FILE"; }
 
 REBOOT_IF_NEEDED="${REBOOT_IF_NEEDED:-false}"
 NOTIFY_EMAIL="${NOTIFY_EMAIL:-}"
@@ -57,7 +52,7 @@ main() {
 	install_packages
 	configure_updates
 	dry_run
-	ok "auto-updates configured"
+	log "auto-updates configured"
 }
 
 main "$@"

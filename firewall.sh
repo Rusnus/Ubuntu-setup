@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 
+source "$(dirname "$0")/logger.sh"
+
 set -euo pipefail
-
-#colors
-GREEN="\033[0;32m"
-NC="\033[0m"
-
-LOG_FILE="/var/log/ubuntu-setup.log"
-log() { echo -e "$(date '+%Y-%m-%d %H:%M:%S') [firewall] $*" | tee -a "$LOG_FILE"; }
-ok() { echo -e "$(date '+%Y-%m-%d %H:^M:%S') ${GREEN}[OK]${NC} $*" | tee -a "$LOG_FILE"; }
 
 SSH_PORT="${SSH_PORT:-22}"
 EXTRA_PORTS="${EXTRA_PORTS:-}" # e.g. 80/tcp 443/tcp
@@ -54,7 +48,7 @@ main() {
 	install_ufw
 	configure_ufw
 	show_status
-	ok "Firewall configured"
+	log "Firewall configured"
 }
 
 main "$@"
