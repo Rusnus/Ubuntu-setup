@@ -74,7 +74,7 @@ write_config() {
 
 	echo ""
 	echo "Include ${SSHD_CONFIG_DIR}/*.conf"
-	} > "SSHD_CONFIG"
+	} > "$SSHD_CONFIG"
 	log "Wrote new sshd_config (port ${SSH_PORT})"
 }
 
