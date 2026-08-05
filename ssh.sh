@@ -37,7 +37,7 @@ disable_conflicting_dropins() {
 write_banner() {
 
 	local line
-	line= $(printf '%.0s' {1..63})
+	line=$(printf '%.0s-' {1..63})
 	cat > "$BANNER_FILE" <<EOF
 ${line}
 This system is for authorized use only. All activity may be
@@ -59,7 +59,6 @@ write_config() {
 	echo "ChallengeResponseAuthentication no"
 	echo "KbdInteractiveAuthentication no"
 	echo "PubkeyAuthentication yes"
-	echo "PermitRootLogin no"
 	echo "X11Forwarding no"
 	echo "MaxAuthTries 3"
 	echo "ClientAliveInterval 600"
