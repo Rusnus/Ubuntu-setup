@@ -55,5 +55,4 @@ All options are set via environment variables — no config files to edit.
 | `BAN_TIME` | `3600` | fail2ban ban duration in seconds |
 | `MAX_RETRY` | `5` | fail2ban max auth failures before ban |
 | `REBOOT_IF_NEEDED` | `false` | Auto-reboot after kernel updates |
-| `NOTIFY_EMAIL` | *(empty)* | Email for upgrade and audit alerts |
 | `EXTRA_PORTS` | *(empty)* | Additional ports to allow in ufw, e.g. `"80/tcp 443/tcp"` |
