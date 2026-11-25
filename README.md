@@ -21,6 +21,7 @@ Each module is independent - run them all at once or pick what you need.
 
 # Quick start
 
+>  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
 ```bash
 # 1. Clone the repo
 git clone https://github.com/Rusnus/Ubuntu-setup.git
@@ -38,8 +39,6 @@ sudo bash setup.sh --all
 # Or run individual modules
 sudo bash setup.sh --ssh --firewall
 ```
-
->  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
 
 # Configuration
 
