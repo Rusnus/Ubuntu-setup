@@ -12,7 +12,6 @@ Each module is independent - run them all at once or pick what you need.
 | `firewall` | ufw default-deny policy, SSH rate limiting |
 | `fail2ban` | Bans IPs after repeated SSH failures |
 | `updates` | Enables unattended-upgrades for automatic security patches |
-| `hardening` | sysctl tweaks, resource limits, auditd rules (CIS Benchmark) |
 
 # Requirements
 
