@@ -12,7 +12,6 @@ Each module is independent - run them all at once or pick what you need.
 | `firewall` | ufw default-deny policy, SSH rate limiting |
 | `fail2ban` | Bans IPs after repeated SSH failures |
 | `updates` | Enables unattended-upgrades for automatic security patches |
-| `hardening` | sysctl tweaks, resource limits, auditd rules (CIS Benchmark) |
 
 # Requirements
 
@@ -22,6 +21,7 @@ Each module is independent - run them all at once or pick what you need.
 
 # Quick start
 
+>  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
 ```bash
 # 1. Clone the repo
 git clone https://github.com/Rusnus/Ubuntu-setup.git
@@ -40,8 +40,6 @@ sudo bash setup.sh --all
 sudo bash setup.sh --ssh --firewall
 ```
 
->  **WARNING:** Run `--ssh` only after your public key is in `~/.ssh/authorized_keys`on the server, or you will lock yourself out.
-
 # Configuration
 
 All options are set via environment variables — no config files to edit.
@@ -55,5 +53,4 @@ All options are set via environment variables — no config files to edit.
 | `BAN_TIME` | `3600` | fail2ban ban duration in seconds |
 | `MAX_RETRY` | `5` | fail2ban max auth failures before ban |
 | `REBOOT_IF_NEEDED` | `false` | Auto-reboot after kernel updates |
-| `NOTIFY_EMAIL` | *(empty)* | Email for upgrade and audit alerts |
 | `EXTRA_PORTS` | *(empty)* | Additional ports to allow in ufw, e.g. `"80/tcp 443/tcp"` |
