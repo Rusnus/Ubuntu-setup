@@ -46,7 +46,7 @@ All options are set via environment variables — no config files to edit.
 
 | Variable | Default | Description |
 |---|---|---|
-| `ADMIN_USER` | `serveradmin` | Username to create |
+| `ADMIN_USER` | `admin` | Username to create |
 | `SSH_KEY_FILE` | *(empty)* | Path to local public key file |
 | `SSH_PORT` | `22` | SSH port (change to reduce scan noise) |
 | `SSH_ALLOW_USERS` | *(all)* | Space-separated list of allowed SSH users |
