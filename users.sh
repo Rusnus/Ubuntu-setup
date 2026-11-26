@@ -14,12 +14,12 @@ create_users() {
 	if id "$ADMIN_USER" &>/dev/null; then
 		log "User '$ADMIN_USER' already exists - skip creation"
 	else
-		useradd -m -s /bin/bash -G sudo "$ADMIN_USER"
-		local generated_password
-		generated_password="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 7)" || true
-		echo "${ADMIN_USER}:${generated_password}" | chpasswd >>"$LOG_FILE" 2>&1
-		log " Generated local password for '$ADMIN_USER' (used for sudo only):"
-		log " ${generated_password}"
+		useradd -m -s /bin/bash "$ADMIN_USER"
+		if ! passwd "$ADMIN_USER"; then
+			userdel --remove "$ADMIN_USER"
+			die "password setup failed; user removed"
+		fi
+		usermod -aG sudo "$ADMIN_USER"
 		log "User '$ADMIN_USER' created and added to sudo group"
 	fi
 
@@ -54,17 +54,17 @@ EOF
 	log "sudo configured for '$ADMIN_USER'"
 }
 
-lock_root(){
-	passwd -l root >> "$LOG_FILE" 2>&1
-	log "Root account password locked (sudo works)"
-}
+# lock_root(){
+#	passwd -l root >> "$LOG_FILE" 2>&1
+#	log "Root account password locked (sudo works)"
+#}
 
 main() {
 	log "=== Module: user setup ==="
 	create_users
 	setup_ssh_key
 	configure_sudo
-	lock_root
+#	lock_root
 	log "User setup complete. Admin user: $ADMIN_USER"
 }
 main "$@"
